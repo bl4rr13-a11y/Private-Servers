@@ -24,6 +24,23 @@ const links = [
     note: "Events only",
     tag: "Active 9/12",
   },
+  // ➕ NEW SLOT
+  {
+    name: "Server #4",
+    game: "Fourth Game",
+    url: "https://example.com/your-private-server-link-4",
+    note: "Private farming",
+    tag: "Private",
+  },
+
+  // ➕ NEW SLOT
+  {
+    name: "Server #5",
+    game: "Fifth Game",
+    url: "https://example.com/your-private-server-link-5",
+    note: "Friends only",
+    tag: "Friends",
+  },
 ];
 
 function safeHost(url) {
