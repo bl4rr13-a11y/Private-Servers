@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Private Server Links</title>
+
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Animated starfield -->
+    <canvas id="starfield" aria-hidden="true"></canvas>
+
+    <!-- Soft glow overlay -->
+    <div class="glow" aria-hidden="true"></div>
+
+    <main class="page">
+      <header class="header">
+        <div class="badge">Space Hub</div>
+        <h1>Private Server Links</h1>
+        <p class="subtitle">
+          Your personal portal to private Roblox servers — add, organize, launch.
+        </p>
+      </header>
+
+      <section class="panel">
+        <div class="panel-top">
+          <h2>Servers</h2>
+          <div class="right-tools">
+            <button id="toggleCompact" class="chip" type="button" aria-pressed="false">
+              Compact view
+            </button>
+          </div>
+        </div>
+
+        <div id="links" class="grid" aria-live="polite"></div>
+
+        <footer class="footer">
+          <span class="hint">
+            Tip: edit <code>links</code> in <code>app.js</code> to add your URLs.
+          </span>
+        </footer>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+    <script src="stars.js"></script>
+  </body>
+</html>
