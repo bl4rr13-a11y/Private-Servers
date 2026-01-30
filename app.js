@@ -5,24 +5,24 @@
 const links = [
   {
     name: "Server #1",
-    game: "Game Name Here",
-    url: "https://example.com/your-private-server-link-1",
-    note: "Main grind server",
-    tag: "Active",
+    game: "Murder Mystery 2",
+    url: "https://www.roblox.com.ml/games/142823291/Murder-Mystery-2?privateServerLinkCode=77890302553169749830826013022541",
+    note: "Chill / Trading",
+    tag: "Active 8/10",
   },
   {
     name: "Server #2",
-    game: "Another Game",
-    url: "https://example.com/your-private-server-link-2",
-    note: "Chill / AFK",
-    tag: "AFK",
+    game: "Da Hood",
+    url: "https://www.roblox.com.ml/games/2788229376/Da-Hood?privateServerLinkCode=77890302553169749830826013022541",
+    note: "Hangout / Trading",
+    tag: "Active 23/40",
   },
   {
     name: "Server #3",
-    game: "Third Game",
-    url: "https://example.com/your-private-server-link-3",
+    game: "Blox Fruits",
+    url: "https://www.roblox.com.ml/games/2753915549/Blox-Fruits?privateServerLinkCode=77890302553169749830826013022541",
     note: "Events only",
-    tag: "Events",
+    tag: "Active 9/12",
   },
 ];
 
