@@ -27,19 +27,19 @@ const links = [
   // ➕ NEW SLOT
   {
     name: "Server #4",
-    game: "Fourth Game",
-    url: "https://example.com/your-private-server-link-4",
+    game: "Grow a garden",
+    url: "https://www.roblox.com.ml/games/126884695634066/Grow-a-Garden?privateServerLinkCode=77890302553169749830826013022541",
     note: "Private farming",
-    tag: "Private",
+    tag: "Active 3/4",
   },
 
   // ➕ NEW SLOT
   {
     name: "Server #5",
-    game: "Fifth Game",
-    url: "https://example.com/your-private-server-link-5",
-    note: "Friends only",
-    tag: "Friends",
+    game: "Steal A Brainrot",
+    url: "https://www.roblox.com.ml/games/109983668079237/FUSE-Steal-a-Brainrot?privateServerLinkCode=77890302553169749830826013022541",
+    note: "Grinding",
+    tag: "Active 6/8",
   },
 ];
 
