@@ -1,24 +1,41 @@
-// Starfield: random dots fade in/out + gentle drift, looping.
-// Uses canvas to keep it smooth and lightweight.
+// Starfield with mouse attraction
+// Stars gently pull toward the cursor when nearby, then drift back
 
 const canvas = document.getElementById("starfield");
 const ctx = canvas.getContext("2d", { alpha: true });
 
 let w = 0, h = 0, dpr = 1;
 let stars = [];
-const STAR_COUNT = 140;
+const STAR_COUNT = 150;
+
+// Mouse tracking
+const mouse = {
+  x: null,
+  y: null,
+  radius: 120, // attraction distance
+};
+
+window.addEventListener("mousemove", (e) => {
+  mouse.x = e.clientX;
+  mouse.y = e.clientY;
+});
+
+window.addEventListener("mouseleave", () => {
+  mouse.x = null;
+  mouse.y = null;
+});
 
 function resize() {
   dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
-  w = Math.floor(window.innerWidth);
-  h = Math.floor(window.innerHeight);
+  w = window.innerWidth;
+  h = window.innerHeight;
+
   canvas.width = Math.floor(w * dpr);
   canvas.height = Math.floor(h * dpr);
   canvas.style.width = w + "px";
   canvas.style.height = h + "px";
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-  // Rebuild stars for new size
   stars = Array.from({ length: STAR_COUNT }, () => makeStar(true));
 }
 
@@ -27,60 +44,74 @@ function rand(min, max) {
 }
 
 function makeStar(initial = false) {
-  const base = {
+  const star = {
     x: rand(0, w),
     y: rand(0, h),
+    ox: 0, // original offset (for smooth return)
+    oy: 0,
     r: rand(0.6, 1.8),
-    // opacity cycles
     phase: rand(0, Math.PI * 2),
     speed: rand(0.006, 0.02),
-    // drift
     vx: rand(-0.04, 0.04),
     vy: rand(-0.03, 0.03),
   };
 
+  star.ox = star.x;
+  star.oy = star.y;
+
   if (!initial) {
-    // spawn from a random edge sometimes
     const edge = Math.floor(rand(0, 4));
-    if (edge === 0) { base.x = rand(0, w); base.y = -5; }
-    if (edge === 1) { base.x = w + 5; base.y = rand(0, h); }
-    if (edge === 2) { base.x = rand(0, w); base.y = h + 5; }
-    if (edge === 3) { base.x = -5; base.y = rand(0, h); }
+    if (edge === 0) { star.x = rand(0, w); star.y = -10; }
+    if (edge === 1) { star.x = w + 10; star.y = rand(0, h); }
+    if (edge === 2) { star.x = rand(0, w); star.y = h + 10; }
+    if (edge === 3) { star.x = -10; star.y = rand(0, h); }
+
+    star.ox = star.x;
+    star.oy = star.y;
   }
 
-  return base;
+  return star;
 }
 
 function tick() {
   ctx.clearRect(0, 0, w, h);
 
-  // subtle vignette
-  const vignette = ctx.createRadialGradient(w * 0.5, h * 0.5, Math.min(w, h) * 0.2, w * 0.5, h * 0.5, Math.max(w, h) * 0.75);
-  vignette.addColorStop(0, "rgba(0,0,0,0)");
-  vignette.addColorStop(1, "rgba(0,0,0,0.35)");
-  ctx.fillStyle = vignette;
-  ctx.fillRect(0, 0, w, h);
-
-  // stars
   for (let i = 0; i < stars.length; i++) {
     const s = stars[i];
+
     s.phase += s.speed;
+    const alpha = 0.15 + (Math.sin(s.phase) + 1) * 0.5 * 0.65;
 
-    // fade in/out loop
-    const a = 0.15 + (Math.sin(s.phase) + 1) * 0.5 * 0.65;
+    // Base drift
+    s.ox += s.vx;
+    s.oy += s.vy;
 
-    // drift
-    s.x += s.vx;
-    s.y += s.vy;
+    // Mouse attraction
+    if (mouse.x !== null) {
+      const dx = mouse.x - s.x;
+      const dy = mouse.y - s.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
 
-    // wrap / respawn
-    const out = s.x < -10 || s.x > w + 10 || s.y < -10 || s.y > h + 10;
-    if (out) stars[i] = makeStar(false);
+      if (dist < mouse.radius) {
+        const force = (1 - dist / mouse.radius) * 0.6;
+        s.x += dx * force * 0.04;
+        s.y += dy * force * 0.04;
+      }
+    }
 
-    // draw star
+    // Ease back to original drift position
+    s.x += (s.ox - s.x) * 0.02;
+    s.y += (s.oy - s.y) * 0.02;
+
+    // Respawn if out of bounds
+    if (s.x < -20 || s.x > w + 20 || s.y < -20 || s.y > h + 20) {
+      stars[i] = makeStar(false);
+      continue;
+    }
+
     ctx.beginPath();
     ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(255,255,255,${a})`;
+    ctx.fillStyle = `rgba(255,255,255,${alpha})`;
     ctx.fill();
   }
 
