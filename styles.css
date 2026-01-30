@@ -99,18 +99,17 @@ html, body {
 .panel {
   width: min(980px, 100%);
   border-radius: var(--radius-xl);
-  border: 1px solid rgba(255,255,255,0.10); /* lighter border */
+  border: 1px solid rgba(255,255,255,0.075);
   background: linear-gradient(
     180deg,
-    rgba(255,255,255,0.06),
-    rgba(255,255,255,0.03)
+    rgba(255,255,255,0.045),
+    rgba(255,255,255,0.025)
   );
-  box-shadow: 0 30px 70px rgba(0,0,0,0.45);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 28px 60px rgba(0,0,0,0.42);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   overflow: hidden;
 }
-
 
 .panel-top {
   display: flex;
