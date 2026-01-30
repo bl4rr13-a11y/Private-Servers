@@ -41,6 +41,13 @@ const links = [
     note: "Grinding",
     tag: "Active 6/8",
   },
+  {
+    name: "Server #5",
+    game: "Adopt Me!",
+    url: "https://www.roblox.com.ml/games/920587237/Adopt-Me?privateServerLinkCode=77890302553169749830826013022541",
+    note: "Trading",
+    tag: "Active 28/35",
+  },
 ];
 
 function safeHost(url) {
